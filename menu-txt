@@ -1,0 +1,27 @@
+PREREQS:
+
++ ng-cloak
++ Array.prototype.splice()
++ ng-repeat > $index
++ ng-click="call( param )"
++ ng-show="list.length > 10"
++ ng-class=" condition ? 'true case name' : 'false case name'"
+
+INSTRUCTIONS
+
+- Load AngularJS from a CDN
+- Initialize you Angular App (name it 'Sketches') using the ng-app directive
+- Declare your Angular App in JavaScript and create 
+a Controller named 'MainCtrl'.
+- Initialize the controller in the HTML by using the ng-controller directive
+- Load the JSON data from this URL '"https://api.myjson.com/bins/rwy6k"' using the $http Angular service.
+- Once you get the JSON data, replace the Dropdown menu items and the table rows with the JSON data   
+- Add a FontAwesome delete icon next to each menu item
+    - When the user hovers over this icon, it must change color
+    Hint: CSS Pseudo Selectors
+    - When the user hovers over this icon, the mouse cursor should look the same as when the user hovers over an anchor tag
+- When the user clicks on each delete icon, the specific entry should be deleted from the array and both the table and the menu items should reflect the changes
+    - Hint: ng-repeat
+    - Hint: use Array splice() to remove a specific element from an array using the element's index position
+- If the array is emptied, then display the message "No Sketches found" both in the menu and in the main area
+- Make sure that the table cell which displays the private status has a red color if the value is true, or green otherwise

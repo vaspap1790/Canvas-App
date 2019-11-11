@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <style>
+        .far:hover {
+            color: red;
+        }
+
+        .true {
+            color: red;
+        }
+
+        .false {
+            color: green;
+        }
+    </style>
+</head>
+
+<body ng-controller="MainCtrl">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+            <a class="navbar-brand" href="#">Canvas App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-grow-0" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown link
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                            <a class="dropdown-item" ng-show="items.length==0" href="#">No
+                                Sketches</a>
+
+                            <a class="dropdown-item d-flex justify-content-between" href="#"
+                                ng-repeat="item in items">{{ item.name }}<i ng-click="deleteItem($index)"
+                                    class="far fa-trash-alt ml-4 mt-1"></i></a>
+
+
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="border shadow p-5 mt-5">
+            <table ng-show="items.length !== 0" class="border">
+                <thead>
+                    <tr class="bg-dark text-white">
+                        <th class="border p-3">Name</th>
+                        <th class="border p-3">Timestamp</th>
+                        <th class="border p-3">Private</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in items">
+                        <td class="p-3 border border-dark">{{ item.name}}</td>
+                        <td class="p-3 border border-dark">{{ item.timestamp }}</td>
+                        <td class="p-3 border border-dark" ng-class="item.private==true ? 'true': 'false' ">
+                            {{ item.private }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <hr>
+            <p ng-show="items.length == 0">No Sketches Found</p>
+
+        </div>
+
+    </div>
+    <script>
+        const App = angular.module("App", []);
+
+        App.controller("MainCtrl", function ($scope, $http) {
+
+            const URL = "https://api.myjson.com/bins/rwy6k";
+
+            $http.get(URL).then(function (response) {
+
+                console.log(response.data);
+                $scope.items = response.data;
+
+
+                $scope.deleteItem = function (index) {
+                    $scope.items.splice(index, 1);
+                };
+            });
+
+        });
+
+
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
